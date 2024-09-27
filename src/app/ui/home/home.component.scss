@@ -1,0 +1,223 @@
+.address-text{
+  background: rgba(255, 255, 255, 0.08);
+  width: fit-content;
+  padding: 5px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  color: white !important;
+  text-decoration: none !important;
+}
+.top-container{
+  background: url("/assets/images/bg.png") no-repeat;
+  background-size: 100%;
+  min-height: 100%;
+}
+.discord-ad{
+  background: #000a36;
+  width: fit-content;
+  color: #ffffff;
+  text-decoration: none !important;
+  height: 80px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 10px;
+}
+
+.content-ar{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 40px;
+  p{
+    font-size: 17px;
+  }
+  .m-title{
+    max-width: 100%;
+    width: 500px;
+  }
+}
+
+.nft-table{
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  td{
+    vertical-align: middle !important;
+  }
+  td , th{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.19) !important;
+    background: transparent !important;
+    color: white;
+  }
+}
+.dottet-line{
+  width: 70px;
+  border-bottom: 4px dotted rgba(255, 255, 255, 0.38);
+}
+.gf-x-img{
+  max-width: 100%;
+  max-height: 140px;
+  width: fit-content;
+}
+.sp-jack-pot{
+  color: #FFFFFF;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  margin-top: 7%;
+  display: block;
+  padding-bottom: 177px;
+  .h-j{
+    font-size: 11px ;
+  }
+  .h-p{
+    font-size: 16px ;
+  }
+}
+.jkx-c{
+  margin-top: -100px;
+}
+.loader-area{
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: start;
+  margin-bottom: 30px;
+  object-fit: contain;
+}
+.circling{
+  object-fit: cover;
+  width: 311px;
+  display: block;
+  left: 249px;
+  margin: auto;
+  margin-top: -615px;
+}
+
+@keyframes rotating {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotating-stop {
+  to{
+    transform: rotate(360deg);
+  }
+}
+.rotating-stop {
+  animation: rotating-stop 2s linear 1;
+}
+
+.rotating {
+  animation: rotating 1s linear infinite;
+}
+.jkx-c .c-pins{
+  position: absolute;
+}
+
+.grad-entry{
+  background: #00F0FF;
+  background: linear-gradient(95.88deg, #00F0FF 45.33%, #45FF03 130.99%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  white-space: nowrap;
+}
+@media only screen and (max-width: 600px) {
+  .jkx-c .c-stati{
+    height: 600px !important;
+  }
+  .circling{
+    -o-object-fit: cover;
+    object-fit: cover;
+    width: 42%;
+    display: block;
+    left: 249px;
+    margin: auto;
+    margin-top: -83%;
+
+  }
+  .sp-jack-pot{
+    margin-top: 5.9%;
+    padding-bottom: 50px;
+  }
+  p{
+    font-size: 80%;
+  }
+  .discord-ad {
+
+  }
+    .side-nav{
+      position: fixed;
+      width: 100%;
+      left: 0;
+      overflow: hidden;
+      display: none;
+    }
+  .side-nav-show{
+    display: flex;
+  }
+  .top-bar{
+    img{
+      height: 70px;
+    }
+  }
+  .main-cont{
+    display: block !important;
+    .c-static{
+      width: 100% !important;
+      height: fit-content;
+    }
+    .content-ar{
+      height: fit-content;
+      width: fit-content !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      h1{
+        font-size: 35px;
+      }
+    }
+  }
+  .filter-btn-cont{
+    flex-wrap: wrap;
+  }
+  .filter-btn{
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .address-text{
+    font-size: 14px;
+  }
+  .nft-table-cont{
+    overflow: auto;
+    img{
+      height: 30px;
+    }
+  }
+  .nft-table th , .nft-table td{
+    white-space: nowrap;
+    font-size: 13px;
+    background: transparent !important;
+    color: white;
+  }
+  .btn-custom{
+    width: 100% !important;
+    font-size: 18px;
+  }
+  .row > * {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.2);
+    padding-left: calc(var(--bs-gutter-x) * 0.2);
+    margin-top: var(--bs-gutter-y);
+  }
+}
+
+

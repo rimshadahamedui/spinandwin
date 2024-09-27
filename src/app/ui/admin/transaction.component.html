@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-md-2">
+    <div class="side-nav">
+      <img src="assets/images/bytradeio.svg" class="w-50 me-auto ms-3 mt-4">
+      <ul class="list-group">
+        <li class="list-group-item" [ngClass]="{'list-group-item-selected' : selectedMainTab === 'dashboard'}"  (click)="switchMainTab('dashboard')">Dashboard</li>
+        <li class="list-group-item" [ngClass]="{'list-group-item-selected' : selectedMainTab === 'nfts'}"  (click)="switchMainTab('nfts')">NFTs</li>
+        <li class="list-group-item" [ngClass]="{'list-group-item-selected' : selectedMainTab === 'settings'}"  (click)="switchMainTab('settings')">Settings</li>
+      </ul>
+      <div></div>
+    </div>
+  </div>
+  <div class="col-md-10">
+    <div class="container  d-flex flex-column justify-content-center" *ngIf="selectedMainTab === 'nfts'">
+      <div class="row mt-4 ">
+        <div class="col-md-12">
+          <h1 class="fw-bolder mb-0">Mint</h1>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div>
+                <label class="mb-0">NFT Name(Prefix)</label>
+                <input type="text" class="form-control"  placeholder="Name" [(ngModel)]="MintData.name">
+              </div>
+              <div>
+                <label class="mb-0">NFT Description</label>
+                <input type="text" class="form-control"  placeholder="Description"  [(ngModel)]="MintData.description">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div>
+                <label class="mb-0">NFT Count</label>
+                <input type="number" class="form-control"  placeholder="Amount" [(ngModel)]="MintData.nft_amount">
+              </div>
+              <div>
+                <label class="mb-0">Reward</label>
+                <input class="form-control" type="number" min=0 placeholder="Reward in MATIC" [(ngModel)]="MintData.reward">
+              </div>
+            </div>
+            <div class="col-md-4">
+                <div class="loader-area">
+                  <img *ngIf="loader" src="assets/loader.svg">
+                </div>
+                <button class="btn w-btn px-5 m-auto d-block align-self-center"   (click)="mintAll()">Mint</button>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-md-12 mt-4">
+        <div class="row mx-1 mt-4">
+
+          <table class="table nft-table">
+            <thead>
+            <tr>
+              <th scope="col">NFT</th>
+              <th scope="col">Ticket No</th>
+              <th scope="col">Reward</th>
+              <th scope="col" class="text-center">Owner</th>
+              <th scope="col" class="text-right">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let dta of Collection | orderBy : 'reward' : true">
+              <tr *ngIf="dta?.account">
+                <th scope="row">
+                  <img src="assets/images/ticket.png" height="50"></th>
+                <td class="fw-lighter">#{{dta?.id}}</td>
+                <td><i class="fa-solid fa-trophy me-3 text-secondary" ></i> {{dta?.reward}} {{coin}}</td>
+                <td class="text-center" style="width: 400px"> <a class="address-text text-center" style="width: 200px" href="{{BlockExplorer + dta?.account}}" target="_blank">{{dta?.account | address}}</a></td>
+                <td>
+                  <span *ngIf="contractAddress !== dta?.account" style="color: #00ff51"> Taken </span>
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+

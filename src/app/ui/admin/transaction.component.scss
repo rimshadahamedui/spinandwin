@@ -1,0 +1,41 @@
+.nft-table{
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+  td{
+    vertical-align: middle;
+  }
+  td , th{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.19) !important;
+    background: transparent !important;
+    color: white !important;
+  }
+}
+.address-text{
+  background: rgba(255, 255, 255, 0.08);
+  width: fit-content;
+  padding: 5px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  color: white !important;
+  text-decoration: none !important;
+}
+.side-nav .list-group .list-group-item{
+  border: none !important;
+}
+
+label{
+  font-size: 14px;
+  margin-top: 20px;
+  padding-bottom: 5px;
+}
+.loader-area{
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  img{
+    width: 50%;
+  }
+}

@@ -1,0 +1,236 @@
+<app-header></app-header>
+<div class="container">
+    <ng-container *ngIf="NetworkStatus === true">
+      <div class="row ">
+        <div class="col-xl-6">
+          <div class="dotted-area  p-0 flex-row border-0 main-cont" >
+            <div class="jkx-c">
+              <img class="c-static" src="assets/images/wheel-fl.png"  style="object-fit: cover">
+              <img class="circling" [ngClass]="{'rotating' : playLoader}" src="assets/images/rolling-wheel.png"  style="object-fit: cover">
+              <span class="sp-jack-pot">
+                <span class="h-j d-block">JACKPOT VALUE</span>
+
+                <span class="h-p d-block" *ngIf="!connectedAccount"> --- </span>
+                <span class="h-p d-block" *ngIf="connectedAccount">
+                   {{jackpotPrice}} USDT
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <div class="dotted-area  p-0 flex-row border-0 main-cont" >
+            <div class="m-4 content-ar">
+            <!--  <div class="btn btn-custom px-5 my-md-4"  (click)="testCalls()">TST</div>-->
+              <img class="m-title" src="assets/images/main-title.svg">
+              <p class="fw-lighter mt-4"> It's a fast-paced, luck-driven experience that adds an element of surprise and delight to the gaming world. Will you be the next lucky winner to claim the cash price or walk away with a unique NFT that's yours to treasure?</p>
+              <h2 class="my-2 fw-bold"  *ngIf="connectedAccount">
+                <span class="grad-entry"> {{entryprice | number}} USDT</span>
+              </h2>
+
+              <ng-container  *ngIf="playLoader ===false">
+                <div class="btn btn-custom px-5 my-md-4" *ngIf="connectedAccount" (click)="SpinAndWin()">SPIN & WIN</div>
+                <div class="btn btn-custom px-5 my-md-4" *ngIf="!connectedAccount" (click)="connectAccount()">CONNECT WALLET</div>
+              </ng-container>
+
+              <ng-container  *ngIf="playLoader ===true">
+                <div class="btn btn-custom px-5 my-md-4" style="cursor: inherit !important;">SPINNING...</div>
+              </ng-container>
+
+
+              <img class="gf-x-img mt-2" src="assets/images/cash-prices.png">
+              <img class="gf-x-img mt-2" src="assets/images/aditional-banefits.png">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <!--<div class="row mt-4" *ngIf="connectedAccount">
+      <div class="col-md-12">
+        <div class="d-flex filter-btn-cont">
+          <div class="filter-btn px-3  me-auto" (click)="changeMainTab('collectible')" [ngClass]="{'filter-btn-selected' : SelectedMainTab === 'collectible'}">Collectibles</div>
+          <div class="filter-btn px-3 me-2 " (click)="changeMainTab('owned')" [ngClass]="{'filter-btn-selected' :SelectedMainTab === 'owned'}">Owned</div>
+          <div class="filter-btn px-3 me-2" (click)="changeMainTab('winners')" [ngClass]="{'filter-btn-selected' :SelectedMainTab === 'winners'}">Winners & Losers</div>
+          <div class="filter-btn px-3 " (click)="changeMainTab('all')" [ngClass]="{'filter-btn-selected' :SelectedMainTab === 'all'}">All</div>
+        </div>
+      </div>
+    </div>
+    <div class="row  mt-4" *ngIf="SelectedMainTab === 'all'">
+      <ng-container *ngFor="let dta of Collection">
+        <div class="col-md-3 mb-3">
+          <div class="dotted-area p-0 border-0" style="min-height: auto">
+            <img src="assets/images/ticket.png">
+            <div class="d-flex justify-content-between p-2">
+              <div class=" align-self-center">
+                <p class="mb-0 fw-lighter">#{{dta?.id}}</p>
+                <div class="d-flex">
+                  <h3 class="mb-0 me-2 align-self-center"><i class="fa-solid fa-trophy me-1 text-secondary" style="font-size: 20px"></i> {{dta?.reward}} </h3>
+                  <img src="assets/images/bnb.png" height="30" class="align-self-center">
+                </div>
+              </div>
+              <a class="address-text align-self-center" style="height: fit-content" href="{{BlockExplorer + dta?.account}}" target="_blank">{{dta?.account | address}}</a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="row  mt-4" *ngIf="SelectedMainTab === 'owned'">
+      <ng-container *ngFor="let dta of OwnedCollection">
+        <div class="col-md-3 mb-3">
+          <div class="dotted-area p-0 border-0" style="min-height: auto">
+            <img src="assets/images/ticket.png">
+            <div class="d-flex justify-content-between p-2">
+              <div class=" align-self-center">
+                <p class="mb-0 fw-lighter">#{{dta?.id}}</p>
+                <div class="d-flex">
+                  <h3 class="mb-0 me-2 align-self-center"><i class="fa-solid fa-trophy me-1 text-secondary" style="font-size: 20px"></i> {{dta?.reward}} </h3>
+                  <img src="assets/images/bnb.png" height="30" class="align-self-center">
+                </div>
+              </div>
+              <a class="address-text align-self-center" style="height: fit-content" href="{{BlockExplorer + dta?.account}}" target="_blank">Owned</a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="OwnedCollection.length < 1">
+       <div class="col-md-12">
+         <img src="assets/images/no-tickets.png" class="d-block mx-auto my-4 opacity-50" height="100" style="border-radius: 15px">
+         <h5 class="text-center opacity-25">Currently you don't own any NFTs</h5>
+       </div>
+      </ng-container>
+    </div>
+
+    <div class="row  mt-4" *ngIf="SelectedMainTab === 'collectible'">
+  &lt;!&ndash;    <div class="loader-container" *ngIf="Collection.length > 2 && Collection.length / AssetLenght * 100 < 90">
+      <div class="loader-x" [ngStyle]="{'width' : Collection.length / AssetLenght * 100 + '%'}"></div>
+      </div>&ndash;&gt;
+      <ng-container *ngFor="let dta of Collection | orderBy : 'reward' : true">
+        <ng-container>
+          <div class="col-md-3 mb-3" *ngIf="dta?.account === contractAddress">
+            <div class="dotted-area p-0 border-0 fade-in" style="min-height: auto">
+              <img src="assets/images/ticket.png">
+              <div class="d-flex justify-content-between p-2">
+                <div class=" align-self-center">
+                  <p class="mb-0 fw-lighter">#{{dta?.id}}</p>
+                  <div class="d-flex">
+                    <i class="fa-solid fa-trophy me-1 text-secondary align-self-center me-2 mb-0" style="font-size: 20px;"></i>
+                    <h3 class="mb-0 me-2 align-self-center"> {{dta?.reward}} </h3>
+                    <img src="assets/images/bnb.png" height="28" class="align-self-center">
+                  </div>
+                </div>
+                <a class="address-text align-self-center" style="height: fit-content" href="{{BlockExplorer + dta?.account}}" target="_blank">{{dta?.account | address}}</a>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <div class="row  mt-4" *ngIf="SelectedMainTab === 'winners'">
+      <div class="col-md-12 ">
+          <div class="nft-table-cont">
+          <table class="table nft-table">
+            <thead>
+            <tr>
+              <th scope="col">NFT</th>
+              <th scope="col">Ticket No</th>
+              <th scope="col">Reward</th>
+              <th scope="col">Win/Lose</th>
+              <th scope="col" class="text-center">Owner</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let dta of Collection | orderBy : 'reward' : true">
+            <tr *ngIf="dta?.account !== contractAddress && dta?.account">
+              <th scope="row">  <img src="assets/images/ticket.png" height="50"></th>
+              <td class="fw-lighter">#{{dta?.id}}</td>
+              <td><i class="fa-solid fa-trophy me-3 text-secondary" ></i> {{dta?.reward}} {{coin}}</td>
+              <td> {{((dta?.reward - entryprice) / entryprice) * 100 | number}} % </td>
+              <td class="text-center" style="width: 400px"> <a class="address-text text-center" style="min-width: 200px" href="{{BlockExplorer + dta?.account}}" target="_blank">{{dta?.account | address}}</a></td>
+            </tr>
+            </ng-container>
+            </tbody>
+          </table>
+          </div>
+      </div>
+    </div>-->
+    </ng-container>
+
+    <!--NO WALLET INSTALLED-->
+    <ng-container *ngIf="WalletProviders.length === 0">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="container buy-card mb-4 upper-margin">
+            <div class="row text-center">
+              <div class="col-md-8 offset-md-2 d-flex flex-column justify-content-between bg-wheel my-5 dotted-area">
+                <img src="assets/images/meta-mask-logo.png" height="70" width="70" class="mx-auto d-block my-4"  />
+                <a class="btn btn-custom my-4 px-5 mx-auto" style="width: fit-content" href="https://metamask.io/download/" target="_blank">Install Metamask</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!--WRONG NETWORK-->
+    <ng-container *ngIf="WalletProviders.length > 0 && NetworkStatus === false">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="container buy-card mb-4 upper-margin">
+            <div class="row text-center">
+              <div class="col-md-8 offset-md-2 d-flex flex-column justify-content-between bg-wheel my-5 dotted-area">
+                <h5 class="my-4">Please connect to <b>BSC Mainnet</b> network using Metamask</h5>
+                <div class="d-flex justify-content-center my-4">
+                  <img src="assets/images/meta-mask-logo.png" height="70" width="70"   />
+                  <div class="dottet-line align-self-center"></div>
+                  <img src="assets/images/bnb.png" height="70" width="70"   />
+                </div>
+                <div class="btn btn-custom my-4 px-5 mx-auto" style="width: fit-content" (click)="addNetwork()" target="_blank">Connect to BSC Mainnet</div>
+
+              <!--  <p class="mt-5">Finding difficulty adding Poligon Mainnet ?</p>
+                <a class="mb-0 " href="https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/" target="_blank">Click here</a>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+
+
+
+
+
+  <ng-container *ngIf="connectedAccount">
+    <div class="d-none side-nav justify-content-center" [ngClass]="{'side-nav-show' : menu === true}">
+      <h3 class="text-center w-100 my-3">Account</h3>
+      <img class="d-block mx-auto my-3" src="assets/images/user.png" height="50" width="50">
+      <p class="address-text mx-auto">{{connectedAccount | address}}</p>
+      <h3 class="text-center w-100 mt-5">You have won</h3>
+      <h2 class="text-center my-2 text-secondary">{{UserFund |number}} {{coin}}</h2>
+      <button class="btn w-btn my-3 w-50 mx-auto d-block" (click)="ClaimReward()">Claim</button>
+      <div class="mb-auto"></div>
+      <a class="nav-item d-flex discord-ad my-auto mx-auto  d-flex d-md-none mt-4" href="https://discord.gg/jpHVmNXd" target="_blank">
+        <div class="align-self-center">
+          <h5 class=" align-self-center mb-0">JOIN OUR COMMUNITY </h5>
+          <p class="mb-0 text-white">& Win More Rewards</p>
+        </div>
+        <img src="assets/images/discord-logo.gif" class="align-self-center" height="70">
+      </a>
+
+      <h2 (click)="MenuOpen()" class="my-4 text-center  d-block d-md-none"><i class="fa fa-close"></i></h2>
+    </div>
+  </ng-container>
+
+
+
+
+</div>
+
+<app-footer></app-footer>
+
+
+
+
+
